@@ -3,13 +3,36 @@
 
 ## Write a short comment describing this function
 
+# It sets the value of the vector. Gets the value
+# of the vector, sets the value of the inverse and
+# gets the value of the inverse
 makeCacheMatrix <- function(x = matrix()) {
-
+        i <- NULL
+        set <- function(y) {
+                x <<- y
+                i <<- NULL
+        }
+        get <- function() x
+        setInverse <- function(inverse) i <<- inverse
+        getInverse <- function() i
+        list(set = set, get = get, setInverse = setInverse, getInverse = getInverse)
 }
 
 
 ## Write a short comment describing this function
 
+# It calculates the inverse of the matrix created
+# in the above function. If an inverse has already
+# been calculated, then it just returns that.
 cacheSolve <- function(x, ...) {
+        i <- x$getInverse()
+        if (!is.null(i)) {
+                message("getting cached data")
+                return(i)
+        }
+        data <- x$get()
+        i <- inverse(data, ...)
+        x$ setInverse(i)
+        i
         ## Return a matrix that is the inverse of 'x'
 }
